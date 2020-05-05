@@ -118,8 +118,6 @@ export MOZILLA_OFFICIAL=1
 
 if [ -n "$_BUILD_ILLUMOS" ]; then
   export MOZ_PKG_SPECIAL=illumos
-else
-  export MOZ_PKG_SPECIAL=solaris
 fi
 
 if [ -n "$_BUILD_64" ]; then
