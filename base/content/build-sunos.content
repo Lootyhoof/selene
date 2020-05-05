@@ -1,0 +1,153 @@
+[p]These instructions are for building Pale Moon 28.9.* and 29.0.0+ and assumes you want to build the latest release.[/p]
+
+[header="Prerequisites"]
+
+[ul]
+  [li]GCC version 7.x[/li]
+  [li]Python 2.7.x[/li]
+  [li]Exactly Autoconf 2.13[/li]
+  [li]yasm 1.2.0 or higher[/li]
+  [li]GTK 3.x[/li]
+  [li]X.Org[/li] 
+  [li]XZ[/li]
+  [li]Motif[/li]
+  [li]Sun Workshop/Sunpro libc[/li]
+  [li]Audio Header files[/li]
+  [li]pkg-config[/li]
+  [li]Plenty of free disk space[/li]
+  [li]At least 6 GB RAM free depending on number of processor cores (limit using the [codeline=bash]mk_add_options MOZ_MAKE_FLAGS="-jN"[/codeline] option)[/li]
+  [li]Various distribution specific development packages[/li]
+  [li]General system requirements for running the application itself[/li]
+[/ul]
+
+<!-- ============================================================================================================== -->
+
+[header="Getting the Source"]
+
+[p]The [url=https://github.com/MoonchildProductions/Pale-Moon]Pale Moon[/url] source code along with the [url=https://github.com/MoonchildProductions/UXP]Unified XUL Platform[/url] are available on Github.[dblbreak]
+
+These instructions assume you are going to create a directory in your home directory (~) called palemoon-source. You can, of course, put the source code anywhere you want as long as the path does not contain any spaces.[/p]
+
+[section="Using git"]
+
+[p]This is the simplest method and git is readily avaiable in all package managers.[/p]
+
+[ul]
+  [li]Install git and/or open a terminal shell and change directory to the desired source location, e.g. [codeline=bash]cd ~/palemoon-source/[/codeline][/li]
+  [li]
+    Execute the following commands:
+[code=bash]git clone https://github.com/MoonchildProductions/Pale-Moon.git ./
+git submodule init && git submodule update
+git checkout release && git submodule update
+[/code]
+  [/li]
+  [li]Proceed to SunOS Variants else to the Build Instructions below.[/li]
+[/ul]
+
+[section="Using the source archives"]
+
+[p]This requires downloading source archives from both the Pale Moon and Unified XUL Repostory and is more complicated:[/p]
+
+[ul]
+  [li]Navigate to [url=https://github.com/MoonchildProductions/Pale-Moon/releases/latest]the release page[/url] on the Pale Moon repository and download the tar.gz archive for Pale Moon.[/li]
+  [li]Extract the source code to the desired location e.g. [codeline=bash]~/palemoon-source[/codeline][/li]
+  [li]Then using the link in "Built with the Unified XUL Platform - {Month} {Day}, {Year} release" navigate to the matching UXP release page and download the tar.gz archive for the platform source code.[/li]
+  [li]Extract that archive to the platform directory inside the Pale Moon source directory e.g. [codeline=bash]~/palemoon-source/platform[/codeline][/li]
+  [li]Proceed to the Build Instructions below.[/li]
+[/ul]
+
+[p][i]NOTE: You will need to extract the contents of the Pale-Moon-XXX or UXP-XXX directory to the locations indicated above.[/i][/p] 
+
+[p]This is not recommended for SunOS. However, if you obtain the source archives in a non-tar form e.g. zip or 7z then you will have to correct file permissions on the source tree.[/p]
+
+[code=bash]chmod -R 744 palemoon-source[/code]
+
+<!-- ============================================================================================================== -->
+
+[header="SunOS Variants"]
+
+[section="OpenIndiana"]
+
+[p]Install the required build dependencies by executing the following commands:[/p]
+
+[code=bash]pfexec pkg install git gcc-7 yasm pkg-config autoconf-213 header-audio sunpro motif python-27 xz gtk3 xorg[/code]
+
+[section="Oracle Solaris 11.x"]
+
+[p]Install the required build dependencies by executing the following commands:[/p]
+
+[code=bash]pfexec pkg install git gcc-7 yasm pkg-config autoconf-213 system/header sunpro motif python-27 xz solaris-desktop[/code]
+
+<!-- ============================================================================================================== -->
+
+[header="Build Instructions"]
+
+[section="Configure"]
+
+[p]Create a file called .mozconfig in the source folder you cloned or unpacked the source to. Make sure it contains at least the following for a close-to-official build:[dblbreak]
+
+[b].mozconfig file[/b][break]
+[code=bash]# Clear this if not a 64bit build
+_BUILD_64=1
+
+# Clear this to build for Solaris
+_BUILD_ILLUMOS=1
+
+# Standard build options for Pale Moon
+ac_add_options --enable-application=palemoon
+ac_add_options --enable-optimize="-O2 -w"
+ac_add_options --enable-default-toolkit=cairo-gtk3
+ac_add_options --enable-jemalloc
+ac_add_options --enable-strip
+ac_add_options --enable-devtools
+ac_add_options --disable-eme
+ac_add_options --disable-webrtc
+ac_add_options --disable-gamepad
+ac_add_options --disable-tests
+ac_add_options --disable-debug
+ac_add_options --disable-necko-wifi
+ac_add_options --disable-updater
+ac_add_options --with-pthreads
+
+# SunOS requires this because the GNU toolchain is not the default
+ac_add_options --with-toolchain-prefix=g
+
+# Please see https://www.palemoon.org/redist.shtml for restrictions when using the official branding.
+ac_add_options --enable-official-branding
+export MOZILLA_OFFICIAL=1
+
+if [ -n "$_BUILD_ILLUMOS" ]; then
+  export MOZ_PKG_SPECIAL=illumos
+else
+  export MOZ_PKG_SPECIAL=solaris
+fi
+
+if [ -n "$_BUILD_64" ]; then
+  ac_add_options --libdir=/usr/lib/amd64
+  ac_add_options --x-libraries=/usr/lib/amd64
+  export PKG_CONFIG_PATH=/usr/lib/amd64/pkgconfig
+else
+  ac_add_options --x-libraries=/usr/lib
+fi
+[/code]
+[/p]
+
+[p][i]Note: LESS IS MORE! There are some pre-made build configs out there that have a lot of options listed, often with insane resulting build configurations. [b]Do not use those[/b] and stick to the instructions here.[/i][/p]
+
+[section="Build"]
+
+[p]Start the build:[/p]
+
+[code=bash]./mach build[/code]
+
+[p]Be patient. Building could take a long time. Your PC will be fully occupied compiling and linking the browser (you can expect 100% CPU usage throughout and lots of memory use - provide ample cooling) and you should not be using it for anything else that is intensive at this time. Especially memory-intensive applications should be avoided because it can cause issues with the linker (memory fragmentation) resulting in a very unstable browser.[/p]
+
+[section="Strip/Package"]
+
+[p]After building is completed, you can take the resulting binaries for a test run in the object directory directly (see the on-screen instructions at the end of the build process) but it will not be complete yet. You need to strip and package the browser to integrate additional code, pack up the omnijar files, and have a ready-to-use browser. You do this by running:
+
+[code=bash]./mach package[/code]
+
+This will create a properly packaged xz compressed tarball in your object folder under the Pale Moon source folder. e.g. for illumos kernel 64bit:
+
+[code=bash]~/palemoon-source/obj-x86_64-pc-solaris2.11/dist/palemoon-{version}.solaris2.11-x86_64-illumos.tar.xz[/code][/p]

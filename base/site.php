@@ -21,7 +21,7 @@ const CONTENT = array(
   '/build/windows/'                           => ['build-windows', 'Building Pale Moon: Microsoft Windows'],
   '/build/linux/'                             => ['build-linux', 'Building Pale Moon: GNU Linux'],
   '/build/mac/'                               => ['build-mac', 'Building Pale Moon: Apple Macintosh'],
-  '/build/sunos/'                             => ['build-sunos', 'Building Pale Moon: SunOS-based Systems', true],
+  '/build/sunos/'                             => ['build-sunos', 'Building Pale Moon: SunOS-based Systems'],
 
   // Add-ons
   '/addons/'                                  => ['addons-index', 'Add-ons', true],
