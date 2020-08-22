@@ -91,6 +91,9 @@ ac_add_options --disable-updater
 ac_add_options --enable-official-branding
 export MOZILLA_OFFICIAL=1
 
+# For versions after 28.12.0
+ac_add_options --enable-phoenix-extensions
+
 # Processor architecure specific build options
 if [ -n "$_BUILD_64" ]; then
   _BUILD_ARCH=x64

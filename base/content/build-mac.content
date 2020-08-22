@@ -95,6 +95,9 @@ ac_add_options --with-macos-sdk=/Path/to/SDKs/MacOSX10.7.sdk
 ac_add_options --enable-official-branding
 export MOZILLA_OFFICIAL=1
 
+# For versions after 28.12.0
+ac_add_options --enable-phoenix-extensions
+
 # Uncomment if using clang++ from Xcode 10 or higher
 # export CXX="/usr/bin/clang++ -std=gnu++11 -stdlib=libc++"
 [/code]
