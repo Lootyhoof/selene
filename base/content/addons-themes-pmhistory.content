@@ -1,0 +1,135 @@
+[p]For the most part, complete themes are identical to those compatible with Firefox 24 (Firefox 27 as of Pale Moon 27), though there are a few changes. These are listed below, per version.[/p]
+
+[header="Pale Moon 15.2"]
+[p]This version introduced the (optional, opt-out) SSL padlock as various indicators on the UI, which can be moved using about:config (see the [url=http://forum.palemoon.org/viewtopic.php?f=19&t=1433]Pale Moon Tweak Guide[/url] for the relevant entries). This is styled in the browser, though theme authors do have CSS selectors available should they wish to override the default styling. See [url=https://raw.githubusercontent.com/Lootyhoof/kempelton-reloaded/master/src/chrome/browser/padlock/padlock.css]padlock.css[/url] of any Pale Moon-specific theme to see how this could be implemented (note that this can be implemented in browser.css if desired, though is placed in its own file and directory in most themes for cleanliness).[/p]
+
+[header="Pale Moon 24.1"]
+[p]This version (re-)introduced an (optional, opt-out) RSS feed icon in the urlbar, which can be disabled in about:config if desired by the user. The selector for this is #ub-feed-button, and is [u]required[/u], else an invisible icon is left present in the urlbar when this button is enabled by the user.[/p]
+
+[header="Pale Moon 25.6"]
+[p]This version introduced the use of chrome overrides in chrome.manifest for complete themes, allowing for overriding icons and stylesheets with others (for example, using different icons for different operating systems). This version also added -moz-os-version media queries, to detect different OS versions. The following exist as of 25.6.0:[p]
+
+[ul]
+  [li]-moz-os-version: windows-xp[/li]
+  [li]-moz-os-version: windows-vista[/li]
+  [li]-moz-os-version: windows-win7[/li]
+  [li]-moz-os-version: windows-win8[/li]
+  [li]-moz-os-version: windows-win10[/li]
+[/ul]
+
+[p]With the introduction of the win10 query in this version, it is now possible to add support for Windows 10's window borders and caption buttons. Please see the relevant Pale Moon commits below:[/p]
+
+[ul]
+  [li][url=https://github.com/MoonchildProductions/Pale-Moon/commit/7e09f7235d90d8065cf8bb693a9d9d96928e299e]Show toolbar borders on Vista through Win 8.x, but not Win10 or later.[/url][/li]
+  [li][url=https://github.com/MoonchildProductions/Pale-Moon/commit/2e8c904e527e42229cccff89cf7fd774f81fc803]Fix the main window border styling on Win 10.[/url][/li]
+  [li][url=https://github.com/MoonchildProductions/Pale-Moon/commit/ca9870219029fada1a949f4c0ec36d7026c7fe9a]Don't use rounded corners on the window edge on Win10[/url][/li]
+  [li][url=https://github.com/MoonchildProductions/Pale-Moon/commit/19e1eb1b133ffc1f41154544ea64b79c89f966a3]Part 2: Draw our own buttons, background and highlights.[/url][/li]
+  [li][url=https://github.com/MoonchildProductions/Pale-Moon/commit/1e7e83f0780fe5e329f50c2781756945f06fd720]Part 3: Add support for dark toolbar backgrounds[/url][/li]
+  [li][url=https://github.com/MoonchildProductions/Pale-Moon/commit/9b913bb7cc450958520db7ec7dfe56e925443453]More Win10 theme fixes[/url][/li]
+  [li][url=https://github.com/MoonchildProductions/Pale-Moon/commit/9f38db522ab7e5f481c63ae6967523dc3e0b592d]Don't use rounded corners on the window edge on Win10 (other toolbars, ToT)[/url][/li]
+  [li][url=https://github.com/MoonchildProductions/Pale-Moon/commit/18a68ac0b2bc5498e7f0284a345f6a01a7704e1b]On Win10, in ToT maximized, make sure to fill the title bar height for Fitts' law[/url][/li]
+[/ul]
+
+[header="Pale Moon 26.0"]
+[p]This version added further media queries to -moz-os-version, beyond those supported in Firefox, to include various Unix-based operating systems as well. It also added another media query, -moz-unix-theme (NOTE: As per below, these are both removed as of 27.0. Do not add these unless you do not plan to support Pale Moon 27+!). The following exist as of 26.0 (in addition to those added previously):[/p]
+
+[ul]
+  [li]-moz-os-version: gnu-linux[/li]
+  [li]-moz-os-version: bsd[/li]
+  [li]-moz-os-version: macos-x[/li]
+  [li]-moz-unix-theme: gtk-2[/li]
+  [li]-moz-unix-theme: qt (NOTE: this is unlikely to ever return true due to lack of a functional Qt interface)[/li]
+[/ul]
+
+[p]Additionally, there is a new button on the toolbar: #history-menu-button. Aesthetically, this can be the same as #history-button, though opens the history menu (and so has a dropdown associated with it usually).[dblbreak]
+
+.downloadTarget, part of the downloads UI (/chrome/browser/downloads/allDownloadsViewOverlay.css and /chrome/browser/downloads/downloads.css) has been renamed to .downloadDisplayName in this release.[/p]
+
+[header="Pale Moon 26.2.2"]
+[p]This version added dark window frame detection for Windows 8. This can be accessed by using the darkwindowframe property of #main-window, for example:[/p]
+
+[codeline=css]#main-window[darkwindowframe="true"][/codeline]
+
+[header="Pale Moon 26.3"]
+[p]This version added dark window frame detection for Windows 10, using the same styling as for Windows 8. It also added dark system theme detection cross-platform, by adding the brighttext property to toolbar, true whenever text on the specified toolbar is bright:[/p]
+
+[codeline=css]toolbar[brighttext][/codeline]
+
+[p]Additionally, this version added a global XUL class for close buttons, .close-icon, styled in /chrome/global/global.css. This is an optional change for theme developers, though is recommended for cleanliness. Any selectors otherwise styling a close icon can be removed if this change is implemented, assuming they are styled identically.[dblbreak]
+
+This version also changed how the media controls are handled. Notably, the volume controls are now horizontal rather than being a vertical pop-out. See the [url=https://github.com/MoonchildProductions/Pale-Moon/commit/076a7d94e07e0136b72e66913b549a5522d667c6]relevant Pale Moon commit[/url] for details on this. Of note, /global/media/videocontrols.css has changed, and two icons are added: volume-empty.png and volume-full.png.[/p]
+
+[header="Pale Moon 27.0"]
+[p]This version removes the -moz-os-version and -moz-unix-theme queries added in 26.0 (possibly to return in future), and is now based on Firefox 38 for the backend (for us, this means /global and /mozapps). This backend change now means that Pale Moon supports CSS variables.[dblbreak]
+
+Notably, this version integrates the statusbar code into the browser, which also includes themes. To fix this, you can directly place the folder /browser/statusbar from the default theme into a theme. This is [u]required[/u], as otherwise the address bar will feature text ghosting due to additional text for the statusbar component.[dblbreak]
+
+As this is now based on Firefox 38 backend, the Firefox 38 devtools are present here. However, you will need to place them in [u]/global[/u] rather than /browser due to further backend changes on the Pale Moon side. Additionally, many changes have been made to the Responsive Design mode and the Developer Toolbar. Please see the relevant [url=https://github.com/Lootyhoof/kempelton-reloaded/commit/a3d24ae4a39fb55bff025e4d8ab39aa8a2e14152#diff-d86ba4f50144ae564412157127d12342]changes[/url] in a third-party theme for the types of changes required for this.[dblbreak]
+
+In /global/about.css, #version should be removed entirely, as this is now rendered in-line with other items in about:. Additionally, in the downloads panel (/browser/downloads/downloads.css), there is now an indicator for no downloads, #emptyDownloads. Please see the [url=https://github.com/MoonchildProductions/Pale-Moon/commit/9dd67222105925cea1b17e6ce55cb6ce24baaa02#diff-aecd6d0813d0cb62fd8e3d334b5a5503]relevant Pale Moon commit[/url] for how this has been styled in the default theme.[/p]
+
+[header="Pale Moon 27.3"]
+[p]In Pale Moon 27.3, an image, imagedocument.png, was added to /browser. This is shown in the urlbar whenever a standalone image is viewed. If this is not included, no favicon is loaded in the urlbar for viewing images. Additionally, the permissions manager, about:permissions, was given a revamp, including several more icons and increasing their size to 48px. Please see the relevant [url=https://github.com/Lootyhoof/pmchrome/commit/ffffb6ad572e596aaba50b6cee77286bf6d70db1]changes[/url] in a third-party theme for the types of changes required for this.[/p]
+
+[header="Pale Moon 27.4"]
+[p]In this version, the devtools styling has been updated as per the following [url=https://github.com/MoonchildProductions/Pale-Moon/commit/d031bd72fd1233b5bc1e34d4dca429829d9379cf]commit[/url].[/p]
+
+[header="Pale Moon 27.5"]
+[p]This version changes the window styling used for Windows 10 significantly, such that it mimics the window styling of Firefox's "Photon" UI. Of note, as per the initial Windows 10 implementation, this version draws its own background on the window frame in Windows 10, while still being able to calculate the correct accent color to use. If no accent color is in use, it uses a dark window frame styling. This dark styling uses a white window title color by default, which must be reverted if no dark window frame is to be used. To do this, several CSS queries were added. For example:[/p]
+
+[ul]
+  [li]@media (-moz-windows-accent-color-applies) - checks if there is an accent color in the titlebar. Can also use @media (-moz-windows-accent-color-applies: 0) to check if color is not present[/li]
+  [li]@media (-moz-windows-accent-color-is-dark) - checks if the current accent color is dark[/li]
+[/ul]
+
+[p]It should be noted that these changes are optional for theme authors, however will improve stability of the window frame on Windows 10.[dblbreak]
+
+The commits for this are [url=https://github.com/MoonchildProductions/Pale-Moon/commit/7e0ad76b10a8f9c2cfaea48eb984b9a3d4bccd80#diff-93cd325025ef373df845d5ebba72d15b]here[/url], [url=https://github.com/MoonchildProductions/Pale-Moon/commit/087ae173cb4224f887de7930fbcc485112080311#diff-93cd325025ef373df845d5ebba72d15b]here[/url], [url=https://github.com/MoonchildProductions/Pale-Moon/commit/24bd99cadaba199c887809ead66e18e64ce745db#diff-93cd325025ef373df845d5ebba72d15b]here[/url] and [url=https://github.com/MoonchildProductions/Pale-Moon/commit/f4656ad95fdadbd89d4859a1ee862d99f58539c9#diff-93cd325025ef373df845d5ebba72d15b]there[/url]. Note that this implementation assumes that CSS variables have been implemented in your theme first, notably the --window-text-color variable.[dblbreak]
+
+Additionally, changes were made to the status bar code in this version, which contain [u]required[/u] changes for themes, in order to not break the statusbar progressmeter. Please see [url=https://github.com/Lootyhoof/aeromoon/commit/58ecb59abd3b3289ba5b1fc9e1fb766a56690b30]here[/url] for the relevant changes in a third-party theme.[/p]
+
+[header="Pale Moon 27.5.1"]
+[p]This version changes the Windows 10 styling from the previous version slightly, such that a white (#FFFFFF) background is used for active windows when there is no accent color applied. This will have an affect on themes if they have implemented the change from 27.5.0, as the window text will be black (#000000) rather than white in this instance. Theme authors can either change the window background, or force the text styling.[dblbreak]
+
+This change can be found [url=https://github.com/MoonchildProductions/Pale-Moon/commit/ffd696dc410a921e2a21a73327e7ea79ff260764]here[/url].[/p]
+
+[header="Pale Moon 28.0"]
+[p]This version changes the following:[/p]
+
+[ul]
+  [li]Browser autocomplete - A new "autocomplete.css" style has been [url=https://github.com/FranklinDM/MaterialMoon/commit/296ff9fe778f63ee7c2780d171bc2fa4e597cb73#diff-85ba22db07aaf167e32673248cb513bc]added[/url] to the browser directory - this styles the history drop-down menu.[/li]
+  li]In-content styles - [url=https://github.com/FranklinDM/MaterialMoon/commit/3aa4f9325112a5ae9aeb3e27d8c62f349be086e3]These styles[/url] are now used for some internal about: pages (ex. about:config, about:networking, etc.).[/li]
+  [li]Toolbar button badges - The selector for this has [url=https://github.com/Lootyhoof/whitemoon/commit/a77a6705ab16de261e6846e2400c1a87f76e0415]changed[/url]] from ".toolbarbutton-badge-container" to ".toolbarbutton-badge-stack" in browser.css.[/li]
+  [li]Notifications - The style for these pop-ups have fundamentally changed. See [url=https://github.com/Lootyhoof/whitemoon/commit/217c71971b4252cb1c10ae471bb14c1a1121ccdb#diff-dd66bbe2059d0a320ca21bb22e08e3b3]this[/url]] and [url=https://github.com/Lootyhoof/whitemoon/commit/217c71971b4252cb1c10ae471bb14c1a1121ccdb#diff-a8c896b8fbf62a0ae73d043cc5e1d210]this[/url].[/li]
+  [li]Scrollbars - If you're not planning on using PM 28's default global style, the background for scrollbars may not appear correctly if you will not apply [url=https://github.com/FranklinDM/Stratum/commit/62c87fe9c07a0a947a1531dd0d727e7cb9e2db70#diff-13ef3d3358b2aab80f4e9522e5968645]this change[/url].[/li]
+  [li]Password Manager
+    [ul]
+      [li]The pop-up ID of the icon in the password's popup [url=https://github.com/Lootyhoof/whitemoon/commit/f7d776b51e949b554fed175974e495c38252c354]has changed[/url]] to being simply "password" instead of having two different IDs for password save and change.[/li]
+      [li]An icon is now added to [url=https://github.com/FranklinDM/Stratum/commit/a6d9a1d83c7a3b1482e306ccdd1ffd30f576d882]each entry[/url] in the Saved Logins window.[/li]
+    [/ul]
+  [/li]
+  [li]Quickdial - A pinned icon was added beside the site title, the undo button now has its own style, and the pin site button has a few changes. See how it was done [url=https://github.com/Lootyhoof/whitemoon/commit/3d8ffbb5448d9b8b0a388b47aa21d48d821fd4c5#diff-10c1545309e01a1b6d6e91a333d72456]here[/url].[/li]
+  [li]Find bar - The find bar has [url=https://github.com/Lootyhoof/camimoon/commit/efa36f6413b9b7e64f8491339118630e09a7466a]moved[/url]] from browser to per-tab search.[/li]
+  [li][url=https://github.com/Lootyhoof/whitemoon/commit/7f39aace84f7f46d922f1a17f1a89703fc16f0c3]Theme change notification[/url] icon.[/li]
+  [li]The styles for Developer Tools are no longer required to be in your theme. The /devtools folder from global can be safely removed if you don't plan on providing backwards compatibility with Pale Moon 27.[/li]
+  [li]References to Developer Tools in browser.css [url=https://github.com/FranklinDM/Stratum/commit/a9a83d718c74972d8a5c80ce8638d3fca04f1e24]have to be updated[/url].[/li]
+  [li]Media controls [url=https://github.com/FranklinDM/Stratum/commit/2cffb3dca649c7801bb94019a7df2e80f615a097]have to be updated[/url].[/li]
+  [li]Global menu style [url=https://github.com/FranklinDM/Stratum/commit/5f7959a6d4e1a3c393fcb6a13e6fbc8aa5dd7177]has to be updated[/url].[/li]
+[/ul]
+
+[header="Pale Moon 28.1"]
+[p]This version changed the find bar to be a browser-global toolbar again (like in Pale Moon 27) instead of per-tab. The previous changes for the find bar can be reverted if desired.[/p]
+
+[header="Pale Moon 28.3"]
+[p]This version added icons and controls to tabs to indicate if sound is playing the tab and if so, allowing the user to mute it with a click.[dblbreak]
+
+Please see [url=https://github.com/FranklinDM/Stratum/commit/afc14bedafe28b03a314b6eb03f094b08f996cbe]here[/url] for the relevant changes in a third-party theme.[/p]
+
+[header="Pale Moon 28.11.0"]
+[p]This version added a warning regarding the status of Firefox extensions in the Add-ons Manager.[dblbreak]
+
+Please see the following commit:[break]
+[url=https://github.com/MoonchildProductions/UXP/commit/f107de8a9051489a7cb786ff0106d8f3ab046ca8#diff-f71391c65725b4b929716cd2627653c9]Issue #1445 - Clarify the status of extensions in the Add-On manager[/url][/p]
+
+[header="Pale Moon 28.13.0"]
+[p]This version fixes an issue with the close button for the undo prompt on the Quickdial page. Please see [url=https://github.com/MoonchildProductions/Pale-Moon/commit/1227e3ce131812afc950b3b3f9734cb3047c1b80]here[/url] for the official commit.[/p]

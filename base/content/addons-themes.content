@@ -1,0 +1,16 @@
+[header="What is a theme?"]
+[p]A theme changes the browser's look, some themes change only the toolbar's background or just the icons while others completely transform the browser and make it look like a different program.[dblbreak]
+
+There are 2 types of themes:[/p]
+[section="[link=/addons/themes/complete/]Complete Themes[/link]"]
+[ul]
+  [li]Often times, it changes the browser's overall look (for example: [url=http://addons.palemoon.org/addon/australium/]Australium[/url] - makes Pale Moon look like the default theme used in Firefox 28+)[/li]
+  [li]Styling almost everything in the browser is possible. From buttons to about: pages to the main browser interface.[/li]
+  [li]There are nearly no limits in what you can change in the browser's interface.[/li]
+[/ul]
+
+[section="[link=/addons/themes/personas/]Lightweight Themes (also known as Personas)[/link]"]
+[ul]
+  [li]Limited in what can be done and can only change the color scheme and background image of the toolbars.[/li]
+  [li]Can be applied even when using a complete theme (through the use of an extension such as [url=http://addons.palemoon.org/addon/themetool/]ThemeTool[/url])[/li]
+[/ul]
