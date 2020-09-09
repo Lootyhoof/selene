@@ -448,4 +448,28 @@ hr {
 	color: #FFFFFF;
 }
 
+/* Table styling */
+
+.tbl {
+  border: 1px solid #bcbcbc;
+}
+
+.tbh {
+  padding: 4px;
+  background-color: #ededed;
+  font-weight: bold;
+  text-align: center;
+  color: #225588;
+}
+
+.tbd1 {
+  padding: 4px;
+  background-color: #FFFFFF;
+}
+
+.tbd2 {
+  padding: 4px;
+  background-color: #F0F0F0;
+}
+
 /* end of mainmenu css - change*/
