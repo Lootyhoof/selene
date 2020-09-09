@@ -50,7 +50,7 @@ chrome[break]
 
 Aside from a few additional files to be added into the folder containing the chrome folder, this is the entire default theme, and will work perfectly. For these additional files, there will be a total of 3: [b]install.rdf[/b], [b]chrome.manifest[/b] and [b]icon.png[/b]. Let's start by making install.rdf. Copy the following into a text editor and save as "install.rdf", ensuring that it is not saved instead as "install.rdf.txt":[/p]
 
-[code=xml]
+[code=xml codebox]
 <?xml version="1.0"?>
 
 <!-- This Source Code is subject to the terms of the Mozilla Public License
@@ -85,7 +85,7 @@ Aside from a few additional files to be added into the folder containing the chr
 
 For chrome.manifest, copy the following into a text editor and save, replacing "namehere" with the same name you used in install.rdf:[/p]
 
-[code=bash]
+[code=bash codebox]
 skin browser namehere chrome/browser/
 skin mozapps namehere chrome/mozapps/
 skin global namehere chrome/global/
@@ -682,7 +682,7 @@ Now that we've covered where particular styles are kept, let's get on with the c
 
 With the images out of the way, make your way to /browser/browser.css and start making your theme come to life.[/p]
 
-[code=css]
+[code=css codebox]
 #nav-bar
   background: red;
 }

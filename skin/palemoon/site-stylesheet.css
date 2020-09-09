@@ -472,4 +472,10 @@ hr {
   background-color: #F0F0F0;
 }
 
+/* Code box styling */
+
+.codebox {
+  border: 1px dashed #90B0D0;
+}
+
 /* end of mainmenu css - change*/

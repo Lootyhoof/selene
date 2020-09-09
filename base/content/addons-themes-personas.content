@@ -6,7 +6,7 @@
 
 JavaScript:[/p]
 
-[code=javascript]
+[code=javascript codebox]
 var themes = [
   {
     id: "example-01",
@@ -40,7 +40,7 @@ function setTheme(node, theme, action) {
 
 [p]HTML:[/p]
 
-[code=html]
+[code=html codebox]
 <button onclick="setTheme(this, 0, INSTALL);"
         onmouseover="setTheme(this, 0, PREVIEW);"
         onmouseout="setTheme(this, 0, RESET_PREVIEW);">Install Third Planet Theme</button>
@@ -55,7 +55,7 @@ function setTheme(node, theme, action) {
 
 [p]From within a [link=/addons/extensions/jetpack/]Bootstrap Style Extension[/url]'s bootstrap.js, you can issue code similar to the following to install and activate a lightweight theme and uninstall it on plugin deactivation.[/p]
 
-[code=javascript]
+[code=javascript codebox]
 let lightweightTheme = {
     id: "example-01",
     name: "Third Planet",
