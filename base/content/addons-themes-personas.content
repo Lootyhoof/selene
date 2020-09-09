@@ -6,8 +6,7 @@
 
 JavaScript:[/p]
 
-[code=javascript codebox]
-var themes = [
+[code=javascript codebox]var themes = [
   {
     id: "example-01",
     name: "Third Planet",
@@ -35,19 +34,16 @@ function setTheme(node, theme, action) {
   var event = document.createEvent("Events");
   event.initEvent(action, true, false);
   node.dispatchEvent(event);
-}
-[/code]
+}[/code]
 
 [p]HTML:[/p]
 
-[code=html codebox]
-<button onclick="setTheme(this, 0, INSTALL);"
+[code=html codebox]<button onclick="setTheme(this, 0, INSTALL);"
         onmouseover="setTheme(this, 0, PREVIEW);"
         onmouseout="setTheme(this, 0, RESET_PREVIEW);">Install Third Planet Theme</button>
 <button onclick="setTheme(this, 1, INSTALL);"
         onmouseover="setTheme(this, 1, PREVIEW);"
-        onmouseout="setTheme(this, 1, RESET_PREVIEW);">Install Foxkeh Boom Theme</button>
-[/code]]
+        onmouseout="setTheme(this, 1, RESET_PREVIEW);">Install Foxkeh Boom Theme</button>[/code]
 
 [p]Note that preview by mouseover doesn't work unless your site is added to the white list of application.[/p]
 
@@ -55,8 +51,7 @@ function setTheme(node, theme, action) {
 
 [p]From within a [link=/addons/extensions/jetpack/]Bootstrap Style Extension[/url]'s bootstrap.js, you can issue code similar to the following to install and activate a lightweight theme and uninstall it on plugin deactivation.[/p]
 
-[code=javascript codebox]
-let lightweightTheme = {
+[code=javascript codebox]let lightweightTheme = {
     id: "example-01",
     name: "Third Planet",
     headerURL: "http://www.example.com/personas/01/header.jpg",
@@ -72,5 +67,4 @@ LightweightThemeManager.themeChanged(lightweightTheme);
 }
 function shutdown(data, reason) {
 LightweightThemeManager.forgetUsedTheme(lightweightTheme.id);
-}
-[/code]
+}[/code]
