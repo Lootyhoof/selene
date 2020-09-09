@@ -38,20 +38,19 @@
 
 [p]Note that on Windows, if the Pale Moon folder is not located in Program Files, it might be in Program Files (x86), or in the location where you installed Pale Moon. Also note that the Aero theme is used due to additional stylings for Aero; it will still work on non-Aero systems (e.g. WinXP, Linux).[dblbreak]
 
-Once these three folders have been extracted somewhere, they should be placed in a new folder called chrome. As such, your current folder structure should be:[dblbreak]
+Once these three folders have been extracted somewhere, they should be placed in a new folder called chrome. As such, your current folder structure should be:[/p]
 
-chrome[break]
-|__ browser[break]
-| |__ {contents of /browser}[break]
-|__ global[break]
-| |__ {contents of /global}[break]
-|__ mozapps[break]
-. |__ {contents of /mozapps}[dblbreak]
+[code=bash codebox]chrome
+├─┬─ browser
+│ └── [contents of /browser]
+├─┬─ global
+| └── [contents of /global]
+└─┬─ mozapps
+  └── [contents of /mozapps][/code]
 
-Aside from a few additional files to be added into the folder containing the chrome folder, this is the entire default theme, and will work perfectly. For these additional files, there will be a total of 3: [b]install.rdf[/b], [b]chrome.manifest[/b] and [b]icon.png[/b]. Let's start by making install.rdf. Copy the following into a text editor and save as "install.rdf", ensuring that it is not saved instead as "install.rdf.txt":[/p]
+[p]Aside from a few additional files to be added into the folder containing the chrome folder, this is the entire default theme, and will work perfectly. For these additional files, there will be a total of 3: [b]install.rdf[/b], [b]chrome.manifest[/b] and [b]icon.png[/b]. Let's start by making install.rdf. Copy the following into a text editor and save as "install.rdf", ensuring that it is not saved instead as "install.rdf.txt":[/p]
 
-[code=xml codebox]
-<?xml version="1.0"?>
+[code=xml codebox]<?xml version="1.0"?>
 
 <!-- This Source Code is subject to the terms of the Mozilla Public License
    - version 2.0 (the "License"). You can obtain a copy of the License at
@@ -78,18 +77,15 @@ Aside from a few additional files to be added into the folder containing the chr
       </Description>
     </em:targetApplication>
   </Description>
-</RDF>
-[/code]
+</RDF>[/code]
 
 [p]Please note that this will NOT work as-is, and is provided as template only. Please see the [link=/addons/resources/install-manifest/]Install Manifests[/link] page for more information.[dblbreak]
 
 For chrome.manifest, copy the following into a text editor and save, replacing "namehere" with the same name you used in install.rdf:[/p]
 
-[code=bash codebox]
-skin browser namehere chrome/browser/
+[code=bash codebox]skin browser namehere chrome/browser/
 skin mozapps namehere chrome/mozapps/
-skin global namehere chrome/global/
-[/code]
+skin global namehere chrome/global/[/code]
 
 [p]For icon.png, this is a 64x64 icon that will be used to display your theme on both about:addons and on the Pale Moon Add-ons Site.[/p]
 
@@ -222,7 +218,7 @@ skin global namehere chrome/global/
 			[td class="tbd1"][/td]
 			[td class="tbd1"][/td]
 			[td class="tbd1"]prefs.css[/td]
-			[td class="tbd1"]styling for the status bar&#39;s preferences window[/td]
+			[td class="tbd1"]styling for the status bar's preferences window[/td]
 		[/tr]
 	[/tbody]
 [/table][dblbreak]
@@ -487,7 +483,7 @@ skin global namehere chrome/global/
 			[th class="tbh"][i]/mozapps/formautofill[/i][/th]
 			[th class="tbh"]Description[/th]
 			[td class="tbd2"]eula.css[/td]
-			[td class="tbd2"]styling for providing an add-on&#39;s EULA[/td]
+			[td class="tbd2"]styling for providing an add-on's EULA[/td]
 		[/tr]
 		[tr]
 			[td class="tbd1"]requestAutocomplete.css[/td]
@@ -682,11 +678,9 @@ Now that we've covered where particular styles are kept, let's get on with the c
 
 With the images out of the way, make your way to /browser/browser.css and start making your theme come to life.[/p]
 
-[code=css codebox]
-#nav-bar
+[code=css codebox]#nav-bar
   background: red;
-}
-[/code]
+}[/code]
 
 [p]Note that most times, RGB(A)/HSL(A) values are used instead of worded names, to be able to use a precise shade.[dblbreak]
 
